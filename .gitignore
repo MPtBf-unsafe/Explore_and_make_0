@@ -1,0 +1,5 @@
+venv/
+.sqlite3
+temp.py
+temp.md
+__pycache__/
