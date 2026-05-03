@@ -40,13 +40,9 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = '__all__'
 
-    def validate_task(self, value):
-        user = self.context['request'].user
-        if not value.project.members.filter(id=user.id).exists():
-            raise serializers.ValidationError(
-                "Вы не можете комментировать задачи в этом проекте."
-            )
-        return value
+    def create(self, validated_data):
+        comment = Comment.objects.create(**validated_data)
+        return comment
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -72,6 +68,8 @@ class TaskSerializer(serializers.ModelSerializer):
         many=True,
         required=False
     )
+
+    comments = CommentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Task

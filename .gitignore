@@ -1,5 +1,6 @@
 venv/
-.sqlite3
+*.sqlite3
 temp.py
 temp.md
 __pycache__/
+Task_Tracker_API/db.sqlite3
